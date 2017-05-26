@@ -20,6 +20,7 @@ public class Game {
         this.initialize();
         while (true) {
             this.turn();
+            this.view.update();
             // todo: switch turn to other player
             Player winner = this.getWinnerIfOver();
             if (winner != null) {
@@ -44,6 +45,6 @@ public class Game {
     }
 
     public boolean isBoardFull() {
-        return false; // todo
+        return true; // todo
     }
 }
