@@ -10,6 +10,7 @@ public class Board {
         this.height = height;
         this.data = new Cell[height][width];
         this.makeBoardEmpty();
+
     }
 
     private void makeBoardEmpty() {
@@ -26,10 +27,41 @@ public class Board {
         return Cell.EMPTY; //todo
     }
 
-    public void drop(int y, Cell color) {
+    public void drop(int col, Cell color) throws NotAValidMoveException {
         if (color == Cell.EMPTY) {
             throw new IllegalArgumentException("You can only drop red and yellow pieces");
         }
-        // todo
+        if(this.isColumnFull(col)) {
+            throw new NotAValidMoveException(String.format("Column %d is full", col));
+        }
+        for (int x = 0; x < height; x++)
+        {
+            if (this.data[x][col] == Cell.EMPTY) {
+                // set color
+                this.data[x][col] = color;
+                // stop
+                return;
+            }
+        }
+    }
+
+    public boolean isFull() {
+        for ( int y = 0; y < width; y++)
+        {
+            if (!isColumnFull(y))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isColumnFull(int col) {
+        int x = height - 1;
+        if (this.data[x][col] == Cell.EMPTY)
+        {
+            return false;
+        }
+        return true;
     }
 }

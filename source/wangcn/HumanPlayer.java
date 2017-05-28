@@ -8,6 +8,11 @@ public class HumanPlayer implements Player {
     }
 
     @Override
+    public String getName() {
+        return "human player";
+    }
+
+    @Override
     public int getMove(ReadOnlyBoard board) {
         int desiredMove = this.input.getMove();
         return 0; // todo

@@ -1,7 +1,7 @@
 package wangcn;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotAValidMoveException {
         Board board = new Board(8, 7);
         Player p1 = new HumanPlayer(new StdinInputController());
         Player p2 = new RandomPlayer();

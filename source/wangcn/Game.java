@@ -1,10 +1,15 @@
 package wangcn;
 
+import java.util.Random;
+
 public class Game {
-    Board board;
-    Player alice;
-    Player bob;
-    BoardView view;
+    private Board board;
+    private Player alice;
+    private Player activePlayer;
+    private Player bob;
+    private BoardView view;
+    private ReadOnlyBoard readOnlyBoard;
+    private Cell activeColor;
 
     public Game(Board board, Player alice, Player bob, BoardView view) {
         this.board = board;
@@ -16,28 +21,51 @@ public class Game {
     /*
      * @return: The winning player, or null for a tie.
      */
-    public Player play() {
+    public Player play() throws NotAValidMoveException {
         this.initialize();
         while (true) {
             this.turn();
             this.view.update();
-            // todo: switch turn to other player
+            this.swapActivePlayer();
             Player winner = this.getWinnerIfOver();
-            if (winner != null) {
-                return winner;
-            }
             if (this.isBoardFull()) {
+                System.out.println("It is a draw, no winner!");
                 return null;
             }
+            if (winner != null) {
+                System.out.printf("%s won!\n", winner.getName());
+                return winner;
+            }
+
+        }
+    }
+
+    private void swapActivePlayer() {
+        if (activePlayer == alice) {
+            activePlayer = bob;
+            activeColor = Cell.COLOR2;
+        } else {
+            activePlayer = alice;
+            activeColor = Cell.COLOR1;
         }
     }
 
     private void initialize() {
-        //todo;
+        Random random = new Random();
+        int playerNr = random.nextInt(2);
+        if (playerNr == 1) {
+            activePlayer = alice;
+            activeColor = Cell.COLOR1;
+        } else {
+            activePlayer = bob;
+            activeColor = Cell.COLOR2;
+        }
     }
 
-    private void turn() {
-        //todo
+    private void turn() throws NotAValidMoveException {
+        //ReadOnlyBoard readOnlyBoard = this.readOnlyBoard;
+        int colInto = activePlayer.getMove(readOnlyBoard);
+        board.drop(colInto, activeColor);
     }
 
     public Player getWinnerIfOver() {
@@ -45,6 +73,6 @@ public class Game {
     }
 
     public boolean isBoardFull() {
-        return true; // todo
+        return board.isFull();
     }
 }
