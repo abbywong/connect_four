@@ -14,4 +14,12 @@ public class ReadOnlyBoard {
     public Cell get(int x, int y) {
         return this.board.read(x, y);
     }
+
+    public boolean isColumnFull(int col) {
+        if (this.board.isColumnFull(col))
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -10,7 +10,7 @@ public class TextBoardView implements BoardView {
     @Override
     public void update() {
         System.out.println("CONNECT FOUR");
-        for (int x = 0; x < this.board.height; x++)
+        for (int x = this.board.height -1; x >=0; x--)
         {
             for ( int y = 0; y < this.board.width; y++)
             {

@@ -24,7 +24,7 @@ public class Board {
     }
 
     public Cell read(int x, int y) {
-        return Cell.EMPTY; //todo
+        return this.data[x][y];
     }
 
     public void drop(int col, Cell color) throws NotAValidMoveException {
@@ -56,7 +56,7 @@ public class Board {
         return true;
     }
 
-    private boolean isColumnFull(int col) {
+    public boolean isColumnFull(int col) {
         int x = height - 1;
         if (this.data[x][col] == Cell.EMPTY)
         {

@@ -1,15 +1,26 @@
 package wangcn;
 
-public class RandomPlayer implements Player {
+import java.util.Random;
 
+public class RandomPlayer implements Player {
+    Random random = new Random();
+    private String name;
+
+    public RandomPlayer(String name) {
+        this.name = name;
+    }
 
     @Override
     public String getName() {
-        return "random player";
+        return this.name;
     }
 
     @Override
     public int getMove(ReadOnlyBoard board) {
-        return 0;
+        int col = this.random.nextInt(board.width);
+        while (board.isColumnFull(col)) {
+            col = this.random.nextInt(board.width);
+        }
+        return col;
     }
 }
