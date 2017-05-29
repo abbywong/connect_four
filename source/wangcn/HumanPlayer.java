@@ -14,7 +14,13 @@ public class HumanPlayer implements Player {
 
     @Override
     public int getMove(ReadOnlyBoard board) {
-        int desiredMove = this.input.getMove();
-        return 0; // todo
+        //  int desiredMove = this.input.getColumn();
+        int col = this.input.getColumn();
+//        for (col < board.width; col++) {
+            while (col >= board.width ||col<0|| board.isColumnFull(col)) {
+                col = this.input.getColumn();
+            }
+            return col;
+//        }
     }
 }
